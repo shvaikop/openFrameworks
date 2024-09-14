@@ -192,7 +192,7 @@ else
 fi
 
 
-PACKAGES="make nlohmann-json3-dev libssl3 libcurl4 brotli libcurl4-openssl-dev libjack-jackd2-0 libjack-jackd2-dev freeglut3-dev libasound2-dev libxmu-dev libxxf86vm-dev g++${CXX_VER} libgl1-mesa-dev${XTAG} libglu1-mesa-dev libraw1394-dev libudev-dev libdrm-dev libglew-dev libopenal-dev libsndfile1-dev libfreeimage-dev libcairo2-dev libfreetype6-dev libssl-dev libpulse-dev libusb-1.0-0-dev ${LIB_GTK_DEV} libopencv-dev libassimp-dev librtaudio-dev libgstreamer${GSTREAMER_VERSION}-dev libgstreamer-plugins-base${GSTREAMER_VERSION}-dev  ${GSTREAMER_FFMPEG} gstreamer${GSTREAMER_VERSION}-pulseaudio gstreamer${GSTREAMER_VERSION}-x gstreamer${GSTREAMER_VERSION}-plugins-bad gstreamer${GSTREAMER_VERSION}-alsa gstreamer${GSTREAMER_VERSION}-plugins-base gstreamer${GSTREAMER_VERSION}-plugins-good gdb ${GLFW_PKG} liburiparser-dev libpugixml-dev libgtk2.0-0 libpoco-dev libxcursor-dev libxi-dev libxinerama-dev"
+PACKAGES="make nlohmann-json3-dev libssl1.1 libcurl4 brotli libcurl4-openssl-dev libjack-jackd2-0 libjack-jackd2-dev freeglut3-dev libasound2-dev libxmu-dev libxxf86vm-dev build-essential libgl1-mesa-dev${XTAG} libglu1-mesa-dev libraw1394-dev libudev-dev libdrm-dev libglew-dev libopenal-dev libsndfile1-dev libfreeimage-dev libcairo2-dev libfreetype6-dev libssl-dev libpulse-dev libusb-1.0-0-dev ${LIB_GTK_DEV} libopencv-dev libassimp-dev librtaudio-dev libgstreamer${GSTREAMER_VERSION}-dev libgstreamer-plugins-base${GSTREAMER_VERSION}-dev  ${GSTREAMER_FFMPEG} gstreamer${GSTREAMER_VERSION}-pulseaudio gstreamer${GSTREAMER_VERSION}-x gstreamer${GSTREAMER_VERSION}-plugins-bad gstreamer${GSTREAMER_VERSION}-alsa gstreamer${GSTREAMER_VERSION}-plugins-base gstreamer${GSTREAMER_VERSION}-plugins-good gdb ${GLFW_PKG} liburiparser-dev libpugixml-dev libgtk2.0-0 libpoco-dev libxcursor-dev libxi-dev libxinerama-dev"
 # libgconf-2-4 libboost-filesystem${BOOST_VER}-dev
 
 echo "installing OF dependencies"
@@ -227,20 +227,20 @@ if [[ $MAJOR_VERSION -lt 18 ]]; then
     cp $ROOT/../extra/poco_config.mk $ROOT/../../../addons/ofxPoco/addon_config.mk
 fi
 
-if [[ $MAJOR_VERSION -lt 14 || ($MAJOR_VERSION -eq 14 && $MINOR_VERSION -eq 4) ]]; then
-    echo "detected ubuntu default gcc too old for compatibility with c++11"
-	echo "OF needs at least ${CXX_VER} as default compiler, we can install this now"
-	echo "or you will need to setup this manually before compiling"
-	if [ "$1" != "-y" ]; then
-	    read -p "Do you want to set gcc/g++ ${CXX_VER} as default now? [Y/n] "
-	    if [[ $REPLY =~ ^[Nn]$ ]]; then
-	        exit 0
-	    fi
-	fi
-	echo "setting gcc-${CXX_VER} as default compiler"
-    sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc${CXX_VER} 1 --force
-    sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++${CXX_VER} 1 --force
-fi
+# if [[ $MAJOR_VERSION -lt 14 || ($MAJOR_VERSION -eq 14 && $MINOR_VERSION -eq 4) ]]; then
+#     echo "detected ubuntu default gcc too old for compatibility with c++11"
+# 	echo "OF needs at least ${CXX_VER} as default compiler, we can install this now"
+# 	echo "or you will need to setup this manually before compiling"
+# 	if [ "$1" != "-y" ]; then
+# 	    read -p "Do you want to set gcc/g++ ${CXX_VER} as default now? [Y/n] "
+# 	    if [[ $REPLY =~ ^[Nn]$ ]]; then
+# 	        exit 0
+# 	    fi
+# 	fi
+# 	echo "setting gcc-${CXX_VER} as default compiler"
+#     sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc${CXX_VER} 1 --force
+#     sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++${CXX_VER} 1 --force
+# fi
 
 # Update addon_config.mk files to use OpenCV 3 or 4 depending on what's installed
 addons_dir="$(readlink -f "$ROOT/../../../addons")"

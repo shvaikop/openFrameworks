@@ -295,7 +295,7 @@ def coreCppFlags(abi, ofRoot){
     def ofSource = ofRoot + 'libs/openFrameworks'
     def libs = ofRoot + 'libs'
 
-    def ret = ["-std=c++14",
+    def ret = ["-std=c++17",
             "-Wall",
             "-frtti",
             "-fexceptions",

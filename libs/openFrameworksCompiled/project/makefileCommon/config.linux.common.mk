@@ -132,7 +132,7 @@ PLATFORM_REQUIRED_ADDONS =
 # find out version of gcc:
 # < 4.7.x  c++0x
 # >= 4.7.x c++11
-# >= 4.9.x c++14
+# >= 4.9.x c++17
 # other compilers c++11 by now
 
 PLATFORM_CXXFLAGS = -Wall -Werror=return-type
@@ -152,7 +152,7 @@ ifeq ("$(GCC_MAJOR)","4")
 		PLATFORM_CXXFLAGS += -DHAS_TLS=0
 	else
 		ifeq ("$(GCC_MINOR)","9")
-			PLATFORM_CXXVER = -std=c++14
+			PLATFORM_CXXVER = -std=c++17
 			PLATFORM_CFLAGS += DGCC_HAS_REGEX
 		else
 			PLATFORM_CXXVER = -std=c++11
@@ -167,8 +167,8 @@ else
 			# c++17 for gcc 8 and newer
 			PLATFORM_CXXVER = -std=c++17
 		else
-			# c++14 for gcc 4 and newer
-			PLATFORM_CXXVER = -std=c++14
+			# c++17 for gcc 4 and newer
+			PLATFORM_CXXVER = -std=c++17
 		endif
 	endif
 	PLATFORM_CXXFLAGS += -DGCC_HAS_REGEX
@@ -333,11 +333,16 @@ PLATFORM_LIBRARIES += freeimage
 ifeq ($(OF_USING_STD_FS),1)
 PLATFORM_LIBRARIES += stdc++fs
 # else
-# PLATFORM_LIBRARIES += boost_filesystem
-# PLATFORM_LIBRARIES += boost_system
+PLATFORM_LIBRARIES += boost_filesystem
+PLATFORM_LIBRARIES += boost_system
 endif
 PLATFORM_LIBRARIES += pugixml
 PLATFORM_LIBRARIES += uriparser
+
+PLATFORM_LIBRARIES += boost_log
+PLATFORM_LIBRARIES += boost_log_setup
+PLATFORM_LIBRARIES += boost_thread
+PLATFORM_LIBRARIES += fmt
 
 #static libraries (fully qualified paths)
 PLATFORM_STATIC_LIBRARIES =
